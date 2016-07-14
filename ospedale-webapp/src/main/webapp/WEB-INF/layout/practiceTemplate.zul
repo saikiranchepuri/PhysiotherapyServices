@@ -383,17 +383,17 @@
                                                             </n:li> -->
                                                         </n:ul>
                                                     </n:li>
-                                                    <n:li class="sub">
+                                                    <!--<n:li class="sub">
                                                         <n:h5> Master Data for LIS </n:h5>
                                                         <n:ul>
-                                                            <!--<n:li>
+                                                            &lt;!&ndash;<n:li>
                                                                 <a label="Accreditation">
                                                                     <attribute name="onClick">
                                                                         setTitleAndActivateMenu("Master Data for LIS","Accreditation", masterList);
                                                                         appendContent("accreditation");
                                                                     </attribute>
                                                                 </a>
-                                                            </n:li>-->
+                                                            </n:li>&ndash;&gt;
                                                             <n:li>
                                                                 <a label="Equipment ">
                                                                     <attribute name="onClick">
@@ -411,7 +411,7 @@
                                                                 </a>
                                                             </n:li>
                                                         </n:ul>
-                                                    </n:li>
+                                                    </n:li>-->
 
                                                    
                                                       

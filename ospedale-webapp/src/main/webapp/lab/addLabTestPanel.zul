@@ -31,7 +31,7 @@
 	]]>
     </zscript>
     <window id="addLabTestPanelWindow" width="50%" apply="${labController}" closable="true"
-            position="center">
+            position="center,top">
         <div style="padding:5px" zclass="page-header titled-well">
             <h:h1>
                 <h:small>New Physiotherapy Test</h:small>
@@ -82,11 +82,11 @@
                     <textbox sclass="span12" />
                 </div>
              </div>-->
-        <separator height="10px"/>
-        <tabbox>
+      <!--  <separator height="10px"/>-->
+        <!--<tabbox>
             <tabs>
                 <tab label="Associate Test"/>
-                <!-- <tab label="Technician" id="technicianTab"/> -->
+                &lt;!&ndash; <tab label="Technician" id="technicianTab"/> &ndash;&gt;
             </tabs>
             <tabpanels>
                 <tabpanel>
@@ -116,7 +116,7 @@
                     </h:table>
                 </tabpanel>
                 <tabpanel>
-                    <!--<div sclass="panelFoot">
+                    &lt;!&ndash;<div sclass="panelFoot">
                         <a id="addButton" class="btn btn-mini" label="Add" onClick="labController.buildPanelTechnicianSet()">
                             <attribute name="onClick">
                                 Window window = (Window) Executions.createComponents("/lab/panelTechnician.zul", null,
@@ -124,8 +124,8 @@
                                 //window.addForward("onDetach", associatedTechnicianGrid, "onReload");
                             </attribute>
                         </a>
-                    </div>-->
-                    <!--<div id="associatedTechnicianSection">
+                    </div>&ndash;&gt;
+                    &lt;!&ndash;<div id="associatedTechnicianSection">
                         <label value="Associated Technician"/>
                         <grid id="associatedTechnicianGrid"
                               model="@{labController.labTestPanel.panelTechnicians,load-after='self.onReload,deleteButton.onClick'}">
@@ -151,13 +151,13 @@
                                 </row>
                             </rows>
                         </grid>
-                    </div>-->
+                    </div>&ndash;&gt;
                     <separator/>
                 </tabpanel>
             </tabpanels>
-        </tabbox>
+        </tabbox>-->
         <div sclass="panelFoot"/>
-        <separator height="10px"/>
+       <!-- <separator height="10px"/>-->
         <div sclass="panelFoot">
             <button label="Save" id="Save" zclass="btn-success btn">
                 <attribute name="onClick">
