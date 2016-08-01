@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import com.nzion.domain.billing.*;
+import com.nzion.domain.emr.lab.LabTest;
+import com.nzion.domain.emr.lab.LabTestProfile;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -311,6 +314,122 @@ public List<AcctgTransactionEntry> searchAcctgTransactionEntryForLabReportExport
 			criteria.add(Restrictions.eq("referralId", ((Referral)referral).getId().toString()));
 		return criteria.list();
 	}
-	
+
+	public  List<LabTest> getPriceForLabTest(List<LabTest> labTests){
+		Iterator iterator = labTests.iterator();
+		while (iterator.hasNext()){
+			LabTest labTest = (LabTest)iterator.next();
+			String testCode = labTest.getTestCode();
+
+			String query = "SELECT BILLABLE_AMOUNT, home_service FROM lab_tariff where LAB_TEST = '" + testCode + "'";
+			Query q = getSession().createSQLQuery(query);
+			List l = q.list();
+			if(UtilValidator.isNotEmpty(l)){
+				Object[] data = (Object[]) l.get(0);
+				labTest.setBillableAmount((BigDecimal) data[0]);
+				labTest.setHomeServiceAmount((BigDecimal) data[1]);
+			}
+		}
+		return labTests;
+	}
+
+	public  boolean updatePriceInLabTariff(List<LabTest> labTests){
+		try {
+			Iterator iterator = labTests.iterator();
+			while (iterator.hasNext()){
+				LabTest labTest = (LabTest)iterator.next();
+				String query = "UPDATE lab_tariff SET BILLABLE_AMOUNT = " + labTest.getBillableAmount() + ", home_service = " + labTest.getHomeServiceAmount() + " WHERE LAB_TEST = '" + labTest.getTestCode() + "'";
+				Query q = getSession().createSQLQuery(query);
+				int count = q.executeUpdate();
+				if((count == 0) && ((labTest.getBillableAmount() != null) || (labTest.getHomeServiceAmount() != null))){
+					String insertQuery = "INSERT INTO lab_tariff (SERVICE_MAIN_GROUP,SERVICE_SUB_GROUP,INS_SERVICE_ID,TARIF_CATEGORY,PATIENT_CATEGORY,LABORATORY_SHARE,DOCTOR_SHARE,TECHNICIAN_SHARE,TEST_COST,MARKUP_AMOUNT,BILLABLE_AMOUNT,home_service,FROM_DATE,THRU_DATE,LOCATION_ID,LAB_TEST) VALUES ('07','009',262,'01','01',125.00,100.00,30.00,255.00,50.00,"+labTest.getBillableAmount()+","+labTest.getHomeServiceAmount()+",'"+UtilDateTime.nowDateString("yyyy-MM-dd")+"','2018-12-31',10001,'"+labTest.getTestCode()+"')";
+					Query iq = getSession().createSQLQuery(insertQuery);
+					int insertCount = iq.executeUpdate();
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public  List<LabTestPanel> getPriceForLabTestPanel(List<LabTestPanel> labTestPanels){
+		Iterator iterator = labTestPanels.iterator();
+		while (iterator.hasNext()){
+			LabTestPanel labTest = (LabTestPanel)iterator.next();
+			String testCode = labTest.getPanelCode();
+
+			String query = "SELECT BILLABLE_AMOUNT, home_service FROM lab_tariff where LAB_PANEL = '" + testCode + "'";
+			Query q = getSession().createSQLQuery(query);
+			List l = q.list();
+			if(UtilValidator.isNotEmpty(l)){
+				Object[] data = (Object[]) l.get(0);
+				labTest.setBillableAmount((BigDecimal) data[0]);
+				labTest.setHomeServiceAmount((BigDecimal) data[1]);
+			}
+		}
+		return labTestPanels;
+	}
+
+	public  boolean updatePriceInLabTariffForLabTestPanel(List<LabTestPanel> labTestPanels){
+		try {
+			Iterator iterator = labTestPanels.iterator();
+			while (iterator.hasNext()){
+				LabTestPanel labTest = (LabTestPanel)iterator.next();
+				String query = "UPDATE lab_tariff SET BILLABLE_AMOUNT = " + labTest.getBillableAmount() + ", home_service = " + labTest.getHomeServiceAmount() + " WHERE LAB_PANEL = '" + labTest.getPanelCode() + "'";
+				Query q = getSession().createSQLQuery(query);
+				int count = q.executeUpdate();
+				if((count == 0) && ((labTest.getBillableAmount() != null) || (labTest.getHomeServiceAmount() != null))){
+					String insertQuery = "INSERT INTO lab_tariff (SERVICE_MAIN_GROUP,SERVICE_SUB_GROUP,INS_SERVICE_ID,TARIF_CATEGORY,PATIENT_CATEGORY,LABORATORY_SHARE,DOCTOR_SHARE,TECHNICIAN_SHARE,TEST_COST,MARKUP_AMOUNT,BILLABLE_AMOUNT,home_service,FROM_DATE,THRU_DATE,LOCATION_ID,LAB_PANEL) VALUES ('07','009',262,'01','01',125.00,100.00,30.00,255.00,50.00,"+labTest.getBillableAmount()+","+labTest.getHomeServiceAmount()+",'"+UtilDateTime.nowDateString("yyyy-MM-dd")+"','2018-12-31',10001,'"+labTest.getPanelCode()+"')";
+					Query iq = getSession().createSQLQuery(insertQuery);
+					int insertCount = iq.executeUpdate();
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public  List<LabTestProfile> getPriceForLabTestProfile(List<LabTestProfile> labTestProfiles){
+		Iterator iterator = labTestProfiles.iterator();
+		while (iterator.hasNext()){
+			LabTestProfile labTest = (LabTestProfile)iterator.next();
+			String testCode = labTest.getProfileCode();
+
+			String query = "SELECT BILLABLE_AMOUNT, home_service FROM lab_tariff where LAB_PROFILE = '" + testCode + "'";
+			Query q = getSession().createSQLQuery(query);
+			List l = q.list();
+			if(UtilValidator.isNotEmpty(l)){
+				Object[] data = (Object[]) l.get(0);
+				labTest.setBillableAmount((BigDecimal) data[0]);
+				labTest.setHomeServiceAmount((BigDecimal) data[1]);
+			}
+		}
+		return labTestProfiles;
+	}
+
+	public  boolean updatePriceInLabTariffForLabTestProfile(List<LabTestProfile> labTestProfiles){
+		try {
+			Iterator iterator = labTestProfiles.iterator();
+			while (iterator.hasNext()){
+				LabTestProfile labTest = (LabTestProfile)iterator.next();
+				String query = "UPDATE lab_tariff SET BILLABLE_AMOUNT = " + labTest.getBillableAmount() + ", home_service = " + labTest.getHomeServiceAmount() + " WHERE LAB_PROFILE = '" + labTest.getProfileCode() + "'";
+				Query q = getSession().createSQLQuery(query);
+				int count = q.executeUpdate();
+				if((count == 0) && ((labTest.getBillableAmount() != null) || (labTest.getHomeServiceAmount() != null))){
+					String insertQuery = "INSERT INTO lab_tariff (SERVICE_MAIN_GROUP,SERVICE_SUB_GROUP,INS_SERVICE_ID,TARIF_CATEGORY,PATIENT_CATEGORY,LABORATORY_SHARE,DOCTOR_SHARE,TECHNICIAN_SHARE,TEST_COST,MARKUP_AMOUNT,BILLABLE_AMOUNT,home_service,FROM_DATE,THRU_DATE,LOCATION_ID,LAB_PROFILE) VALUES ('07','009',262,'01','01',125.00,100.00,30.00,255.00,50.00,"+labTest.getBillableAmount()+","+labTest.getHomeServiceAmount()+",'"+UtilDateTime.nowDateString("yyyy-MM-dd")+"','2018-12-31',10001,'"+labTest.getProfileCode()+"')";
+					Query iq = getSession().createSQLQuery(insertQuery);
+					int insertCount = iq.executeUpdate();
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 }

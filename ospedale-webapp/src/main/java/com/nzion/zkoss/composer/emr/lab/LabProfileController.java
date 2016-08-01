@@ -81,7 +81,7 @@ public class LabProfileController extends OspedaleAutowirableComposer {
 		//labService.saveLabTestPanel(labTestPanel);
 		labTestPanel.setTests(labTests);
 		LabTestProfile test = commonCrudService.save(labTestPanel);
-		test.setProfileCode("Profile " + test.getId());
+		//test.setProfileCode("Profile " + test.getId());
 		commonCrudService.merge(test);
 		root.getFellowIfAny("addLabTestProfileWindow", true).detach();
 		UtilMessagesAndPopups.showSuccess();

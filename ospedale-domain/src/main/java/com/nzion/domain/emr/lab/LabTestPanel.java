@@ -1,6 +1,7 @@
 package com.nzion.domain.emr.lab;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -24,7 +25,12 @@ public class LabTestPanel extends IdGeneratingBaseEntity implements Serializable
 	private String department;
 
 	private boolean prescriptionRequired;
-	
+	private String specialInstruction;
+	private String turnaroundTime;
+	private Integer displayOrder;
+	private BigDecimal billableAmount;
+	private BigDecimal homeServiceAmount;
+
 
 	private Set<LabTest> tests;
 
@@ -79,5 +85,46 @@ public class LabTestPanel extends IdGeneratingBaseEntity implements Serializable
 
 	public void setPrescriptionRequired(boolean prescriptionRequired) {
 		this.prescriptionRequired = prescriptionRequired;
+	}
+
+	public String getSpecialInstruction() {
+		return specialInstruction;
+	}
+
+	public void setSpecialInstruction(String specialInstruction) {
+		this.specialInstruction = specialInstruction;
+	}
+
+	public String getTurnaroundTime() {
+		return turnaroundTime;
+	}
+
+	public void setTurnaroundTime(String turnaroundTime) {
+		this.turnaroundTime = turnaroundTime;
+	}
+
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+	@Transient
+	public BigDecimal getBillableAmount() {
+		return billableAmount;
+	}
+
+	public void setBillableAmount(BigDecimal billableAmount) {
+		this.billableAmount = billableAmount;
+	}
+	@Transient
+	public BigDecimal getHomeServiceAmount() {
+		return homeServiceAmount;
+	}
+
+	public void setHomeServiceAmount(BigDecimal homeServiceAmount) {
+		this.homeServiceAmount = homeServiceAmount;
 	}
 }

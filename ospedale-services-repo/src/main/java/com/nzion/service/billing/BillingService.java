@@ -3,9 +3,7 @@ package com.nzion.service.billing;
 import com.nzion.domain.*;
 import com.nzion.domain.billing.*;
 import com.nzion.domain.emr.UnitOfMeasurement;
-import com.nzion.domain.emr.lab.LabOrderRequest;
-import com.nzion.domain.emr.lab.LabRequisition;
-import com.nzion.domain.emr.lab.LabTestPanel;
+import com.nzion.domain.emr.lab.*;
 import com.nzion.domain.pms.InsuranceProvider;
 import com.nzion.exception.TransactionException;
 import com.nzion.report.search.view.BillingSearchVO;
@@ -67,5 +65,14 @@ public interface BillingService {
 	LabTestPanel getLabtestPanelByPanelName(String panelName);
 	
 	public Map<AcctgTransTypeEnum,Map<String,List<AcctgTransactionEntry>>> getCollectionReport(AcctgTransTypeEnum chargeType,Date fromDate,Date toDate);
+
+	List<LabTest> getPriceForLabTest(List<LabTest> labTests);
+	boolean updatePriceInLabTariff(List<LabTest> labTests);
+
+	List<LabTestPanel> getPriceForLabTestPanel(List<LabTestPanel> labTestPanels);
+	boolean updatePriceInLabTariffForLabTestPanel(List<LabTestPanel> labTestPanels);
+
+	List<LabTestProfile> getPriceForLabTestProfile(List<LabTestProfile> labTestProfiles);
+	boolean updatePriceInLabTariffForLabTestProfile(List<LabTestProfile> labTestProfiles);
 	
 }

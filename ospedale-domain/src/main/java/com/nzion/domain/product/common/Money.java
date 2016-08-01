@@ -381,7 +381,8 @@ public final class Money implements Comparable<Money>, Serializable {
      * always be suitable for display to an end user.
      */
     public String toString() {
-        return amount.toPlainString() + " " + currency.getCurrencyCode();
+        return amount.toPlainString()+ " KD";
+        //return amount.toPlainString() + " " + currency.getCurrencyCode();
     }
 
     /**

@@ -4,7 +4,9 @@ import com.nzion.domain.*;
 import com.nzion.domain.billing.*;
 import com.nzion.domain.emr.UnitOfMeasurement;
 import com.nzion.domain.emr.lab.LabOrderRequest;
+import com.nzion.domain.emr.lab.LabTest;
 import com.nzion.domain.emr.lab.LabTestPanel;
+import com.nzion.domain.emr.lab.LabTestProfile;
 import com.nzion.domain.emr.soap.PatientLabOrder;
 import com.nzion.domain.pms.InsuranceProvider;
 import com.nzion.domain.product.common.Money;
@@ -559,6 +561,33 @@ public class BillingServiceImpl implements BillingService {
         }
         return acctgTransactionMap;
     }
+    public  List<LabTest> getPriceForLabTest(List<LabTest> labTests){
 
+        return billingRepository.getPriceForLabTest(labTests);
+    }
+
+    public boolean updatePriceInLabTariff(List<LabTest> labTests){
+        return billingRepository.updatePriceInLabTariff(labTests);
+    }
+
+    public  List<LabTestPanel> getPriceForLabTestPanel(List<LabTestPanel> labTestPanels){
+
+        return billingRepository.getPriceForLabTestPanel(labTestPanels);
+    }
+
+    public boolean updatePriceInLabTariffForLabTestPanel(List<LabTestPanel> labTestPanels){
+        return billingRepository.updatePriceInLabTariffForLabTestPanel(labTestPanels);
+    }
+
+
+
+    public  List<LabTestProfile> getPriceForLabTestProfile(List<LabTestProfile> labTestProfiles){
+
+        return billingRepository.getPriceForLabTestProfile(labTestProfiles);
+    }
+
+    public boolean updatePriceInLabTariffForLabTestProfile(List<LabTestProfile> labTestProfiles){
+        return billingRepository.updatePriceInLabTariffForLabTestProfile(labTestProfiles);
+    }
 
 }

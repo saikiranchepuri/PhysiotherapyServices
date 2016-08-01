@@ -1,18 +1,10 @@
 package com.nzion.domain.emr.lab;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import com.nzion.domain.annot.AccountNumberField;
 import com.nzion.domain.base.IdGeneratingBaseEntity;
@@ -33,6 +25,14 @@ public class LabTestProfile extends IdGeneratingBaseEntity implements Serializab
 	private String profileNeumonic;
 
 	private boolean prescriptionRequired;
+	private String specialInstruction;
+	private String turnaroundTime;
+	private Integer displayOrder;
+	private String department;
+	@Transient
+	private BigDecimal billableAmount;
+	@Transient
+	private BigDecimal homeServiceAmount;
 	
 
 	@ManyToMany(targetEntity = LabTest.class,fetch = FetchType.EAGER)
@@ -81,5 +81,55 @@ public class LabTestProfile extends IdGeneratingBaseEntity implements Serializab
 
 	public void setPrescriptionRequired(boolean prescriptionRequired) {
 		this.prescriptionRequired = prescriptionRequired;
+	}
+
+	public String getSpecialInstruction() {
+		return specialInstruction;
+	}
+
+	public void setSpecialInstruction(String specialInstruction) {
+		this.specialInstruction = specialInstruction;
+	}
+
+	public String getTurnaroundTime() {
+		return turnaroundTime;
+	}
+
+	public void setTurnaroundTime(String turnaroundTime) {
+		this.turnaroundTime = turnaroundTime;
+	}
+
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	@Transient
+	public BigDecimal getBillableAmount() {
+		return billableAmount;
+	}
+
+	public void setBillableAmount(BigDecimal billableAmount) {
+		this.billableAmount = billableAmount;
+	}
+
+	@Transient
+	public BigDecimal getHomeServiceAmount() {
+		return homeServiceAmount;
+	}
+
+	public void setHomeServiceAmount(BigDecimal homeServiceAmount) {
+		this.homeServiceAmount = homeServiceAmount;
 	}
 }

@@ -85,7 +85,7 @@ public class LabPanelController extends OspedaleAutowirableComposer {
 		//labService.saveLabTestPanel(labTestPanel);
 		labTestPanel.setTests(labTests);
 		LabTestPanel test = commonCrudService.save(labTestPanel);
-		test.setPanelCode("Panel " + test.getId());
+		//test.setPanelCode("Panel " + test.getId());
 		commonCrudService.merge(test);
 		root.getFellowIfAny("addNewLabTestPanelWindow", true).detach();
 		UtilMessagesAndPopups.showSuccess();

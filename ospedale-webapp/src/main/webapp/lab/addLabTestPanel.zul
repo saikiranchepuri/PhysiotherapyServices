@@ -41,9 +41,15 @@
         <div zclass="container-fluid">
             <div zclass="row-fluid">
                 <div zclass="span6">
-                    <label value="Test Name" mold="required"/>
+                    <label value="Afya Test Name" mold="required"/>
                     <textbox value="@{labController.labTest.testDescription,save-when='Save.onClick'}"
-                             constraint="no empty:Panel Name Required" sclass="span12"
+                             constraint="no empty:Test Name Required" sclass="span12"
+                             w:showError_="function(mesg){displayError(this,mesg);}" w:clearErrorMessage="function(revalidate, remainError){clearErrorMessage(remainError,this);}"/>
+                </div>
+                <div zclass="span6">
+                    <label value="Display Name" mold="required"/>
+                    <textbox value="@{labController.labTest.testPneumonic,save-when='Save.onClick'}"
+                             constraint="no empty:Display Name Required" sclass="span12"
                              w:showError_="function(mesg){displayError(this,mesg);}" w:clearErrorMessage="function(revalidate, remainError){clearErrorMessage(remainError,this);}"/>
                 </div>
                 <!--<div zclass="span2">
@@ -73,95 +79,134 @@
                     </combobox>
                 </div>
 
-            </div>
+            </div> -->
              <div zclass="row-fluid">
-                <div zclass="span6">
-                    <label value="Display Order" />
-                      &lt;!&ndash;<textbox value="@{labController.labTest.sortOrder,save-when='Save.onClick'}"
-                                                   sclass="span12" />&ndash;&gt;
-                    <textbox sclass="span12" />
+                <div zclass="span4">
+                    <label value="Display Order"/>
+                    <intbox value="@{labController.labTest.displayOrder,save-when='Save.onClick'}" sclass="span12"/>
                 </div>
-             </div>-->
-      <!--  <separator height="10px"/>-->
-        <!--<tabbox>
-            <tabs>
-                <tab label="Associate Test"/>
-                &lt;!&ndash; <tab label="Technician" id="technicianTab"/> &ndash;&gt;
-            </tabs>
-            <tabpanels>
-                <tabpanel>
-                    <h:table width="100%">
-                        <h:tr>
-                            <h:td width="50%">
-                                <label value="Physiotherapy Test"/>
-                            </h:td>
-                        </h:tr>
-                        <h:tr>
-                            <h:td style="vertical-align:top;width:50%">
-                                <div style="overflow:auto">
-                                <paging id="paging" pageSize="20"></paging>
-                                    <listbox id="labTestListBox" model="@{labTests}" checkmark="true" multiple="true"
-                                             selectedItem="@{labController.labTests,converter=com.nzion.view.component.MultipleListitemBindingConverter,save-when='Save.onClick'}"
-                                              mold="paging" paginal="${paging}">
-                                        <listhead>
-                                            <listheader label="Test Name"/>
-                                        </listhead>
-                                        <listitem self="@{each='labTest'}" value="@{labTest}">
-                                            <listcell label="@{labTest.investigationName}" style="background:none"/>
-                                        </listitem>
-                                    </listbox>
-                                </div>
-                            </h:td>
-                        </h:tr>
-                    </h:table>
-                </tabpanel>
-                <tabpanel>
-                    &lt;!&ndash;<div sclass="panelFoot">
-                        <a id="addButton" class="btn btn-mini" label="Add" onClick="labController.buildPanelTechnicianSet()">
-                            <attribute name="onClick">
-                                Window window = (Window) Executions.createComponents("/lab/panelTechnician.zul", null,
-                                com.nzion.util.UtilMisc.toMap("labController", labController));
-                                //window.addForward("onDetach", associatedTechnicianGrid, "onReload");
-                            </attribute>
-                        </a>
-                    </div>&ndash;&gt;
-                    &lt;!&ndash;<div id="associatedTechnicianSection">
-                        <label value="Associated Technician"/>
-                        <grid id="associatedTechnicianGrid"
-                              model="@{labController.labTestPanel.panelTechnicians,load-after='self.onReload,deleteButton.onClick'}">
-                            <rows>
-                                <row self="@{each='panelTechnician'}" value="@{panelTechnician}">
-                                    <label value="@{panelTechnician.location.name}"/>
-                                    <a id="deleteButton" class="delBtn" label="Delete"
-                                       onClick="labController.removePanelTechnician(self.getParent().getValue())"/>
-                                    <detail>
-                                        <listbox model="@{panelTechnician.technicians}">
-                                            <listhead>
-                                                <listheader label="Technician"/>
-                                                <listheader label="Email"/>
-                                            </listhead>
-                                            <listitem self="@{each='technician'}">
-                                                <listcell>
-                                                    <name object="@{technician}"/>
-                                                </listcell>
-                                                <listcell label="@{technician.contacts.email}"/>
-                                            </listitem>
-                                        </listbox>
-                                    </detail>
-                                </row>
-                            </rows>
-                        </grid>
-                    </div>&ndash;&gt;
-                    <separator/>
-                </tabpanel>
-            </tabpanels>
-        </tabbox>-->
+                <div zclass="span4">
+                    <label value="Turn Around Time (in hrs)"/>
+                    <decimalbox value="@{labController.labTest.turnaroundTime,save-when='Save.onClick'}" sclass="span12"/>
+                </div>
+                <separator/> <separator/>
+                <div zclass="span4">
+                    <checkbox label=" Prescription Required">
+                        <attribute name="onCreate">
+                            self.setChecked(labController.labTest.isPrescriptionRequired());
+                        </attribute>
+                        <attribute name="onCheck">
+                            if(self.isChecked()){
+                                labController.labTest.setPrescriptionRequired(true);
+                            }
+                            else{
+                                labController.labTest.setPrescriptionRequired(false);
+                            }
+                        </attribute>
+                    </checkbox>
+                </div>
+            </div>
+            <div zclass="row-fluid">
+                <div zclass="span6">
+                    <label value="Department"/>
+                    <textbox value="@{labController.labTest.department,save-when='Save.onClick'}" sclass="span12" disabled="true"/>
+                </div>
+                <div zclass="span6">
+                    <label value="Sub Department"/>
+                    <textbox value="@{labController.labTest.laboratory.laboratory,save-when='Save.onClick'}" sclass="span12" disabled="true"/>
+                </div>
+            </div>
+            <div zclass="row-fluid">
+                <div zclass="span12">
+                    <label value="Special Instruction"/>
+                    <textbox value="@{labController.labTest.specialInstruction,save-when='Save.onClick'}" sclass="span12"  rows="2" cols="50" maxlength="500"/>
+                </div>
+
+            </div>
+             <separator height="10px"/>
+            <!--     <tabbox>
+                    <tabs>
+                        <tab label="Associate Test"/>
+                        &lt;!&ndash; <tab label="Technician" id="technicianTab"/> &ndash;&gt;
+                    </tabs>
+                    <tabpanels>
+                        <tabpanel>
+                            <h:table width="100%">
+                                <h:tr>
+                                    <h:td width="50%">
+                                        <label value="Physiotherapy Test"/>
+                                    </h:td>
+                                </h:tr>
+                                <h:tr>
+                                    <h:td style="vertical-align:top;width:50%">
+                                        <div style="overflow:auto">
+                                        <paging id="paging" pageSize="20"></paging>
+                                            <listbox id="labTestListBox" model="@{labTests}" checkmark="true" multiple="true"
+                                                     selectedItem="@{labController.labTests,converter=com.nzion.view.component.MultipleListitemBindingConverter,save-when='Save.onClick'}"
+                                                      mold="paging" paginal="${paging}">
+                                                <listhead>
+                                                    <listheader label="Test Name"/>
+                                                </listhead>
+                                                <listitem self="@{each='labTest'}" value="@{labTest}">
+                                                    <listcell label="@{labTest.investigationName}" style="background:none"/>
+                                                </listitem>
+                                            </listbox>
+                                        </div>
+                                    </h:td>
+                                </h:tr>
+                            </h:table>
+                        </tabpanel>
+                        <tabpanel>
+                            &lt;!&ndash;<div sclass="panelFoot">
+                                <a id="addButton" class="btn btn-mini" label="Add" onClick="labController.buildPanelTechnicianSet()">
+                                    <attribute name="onClick">
+                                        Window window = (Window) Executions.createComponents("/lab/panelTechnician.zul", null,
+                                        com.nzion.util.UtilMisc.toMap("labController", labController));
+                                        //window.addForward("onDetach", associatedTechnicianGrid, "onReload");
+                                    </attribute>
+                                </a>
+                            </div>&ndash;&gt;
+                            &lt;!&ndash;<div id="associatedTechnicianSection">
+                                <label value="Associated Technician"/>
+                                <grid id="associatedTechnicianGrid"
+                                      model="@{labController.labTestPanel.panelTechnicians,load-after='self.onReload,deleteButton.onClick'}">
+                                    <rows>
+                                        <row self="@{each='panelTechnician'}" value="@{panelTechnician}">
+                                            <label value="@{panelTechnician.location.name}"/>
+                                            <a id="deleteButton" class="delBtn" label="Delete"
+                                               onClick="labController.removePanelTechnician(self.getParent().getValue())"/>
+                                            <detail>
+                                                <listbox model="@{panelTechnician.technicians}">
+                                                    <listhead>
+                                                        <listheader label="Technician"/>
+                                                        <listheader label="Email"/>
+                                                    </listhead>
+                                                    <listitem self="@{each='technician'}">
+                                                        <listcell>
+                                                            <name object="@{technician}"/>
+                                                        </listcell>
+                                                        <listcell label="@{technician.contacts.email}"/>
+                                                    </listitem>
+                                                </listbox>
+                                            </detail>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </div>&ndash;&gt;
+                            <separator/>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>-->
         <div sclass="panelFoot"/>
        <!-- <separator height="10px"/>-->
         <div sclass="panelFoot">
             <button label="Save" id="Save" zclass="btn-success btn">
                 <attribute name="onClick">
+                    try{
                     labController.saveLabTestPanel();
+                    }catch(Exception e){
+                    com.nzion.util.UtilMessagesAndPopups.showError("Display Order :"+labController.labTest.getDisplayOrder()+"  is already exists");
+                    }
                 </attribute>
             </button>
             <button label="Cancel" forward="onClick=onCancel"/>

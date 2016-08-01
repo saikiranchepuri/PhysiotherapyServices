@@ -14,7 +14,9 @@ import com.nzion.domain.Referral;
 import com.nzion.domain.Speciality;
 import com.nzion.domain.billing.*;
 import com.nzion.domain.emr.lab.LabOrderRequest;
+import com.nzion.domain.emr.lab.LabTest;
 import com.nzion.domain.emr.lab.LabTestPanel;
+import com.nzion.domain.emr.lab.LabTestProfile;
 import com.nzion.domain.pms.InsuranceProvider;
 import com.nzion.report.search.view.BillingSearchVO;
 import com.nzion.repository.BaseRepository;
@@ -61,5 +63,14 @@ public interface BillingRepository extends BaseRepository {
     List<AcctgTransactionEntry> searchAcctgTransactionEntryForLabReport(Date fromDate,Date thruDate,Object chargeType);
 	
     List<AcctgTransactionEntry> searchAcctgTransactionEntryForLabReportExport(Date fromDate,Date thruDate,Object chargeType,Object doctor,Object referral);
+
+	List<LabTest> getPriceForLabTest(List<LabTest> labTests);
+	boolean updatePriceInLabTariff(List<LabTest> labTests);
+
+	List<LabTestPanel> getPriceForLabTestPanel(List<LabTestPanel> labTestPanels);
+	boolean updatePriceInLabTariffForLabTestPanel(List<LabTestPanel> labTestPanels);
+
+	List<LabTestProfile> getPriceForLabTestProfile(List<LabTestProfile> labTestProfiles);
+	boolean updatePriceInLabTariffForLabTestProfile(List<LabTestProfile> labTestProfiles);
 
 }
