@@ -62,6 +62,7 @@ public class LabOrderRequest extends IdGeneratingBaseEntity{
 
 	private String referralDoctorId;
 	private String resultEntryDescription;
+	private String referralDoctorName;
 
 
 	@ManyToMany(targetEntity=Laboratories.class,fetch=FetchType.EAGER)
@@ -340,5 +341,13 @@ public class LabOrderRequest extends IdGeneratingBaseEntity{
 
 	public void setResultEntryDescription(String resultEntryDescription) {
 		this.resultEntryDescription = resultEntryDescription;
+	}
+
+	public String getReferralDoctorName() {
+		return referralDoctorName;
+	}
+
+	public void setReferralDoctorName(String referralDoctorName) {
+		this.referralDoctorName = referralDoctorName;
 	}
 }
