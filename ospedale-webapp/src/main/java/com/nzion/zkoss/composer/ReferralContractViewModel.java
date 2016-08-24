@@ -93,8 +93,11 @@ import java.util.*;
   //  }
 }
             referralContract.setContractStatus("IN-PROGRESS");
-            referralContract.setReferralClinicId(referralContract.getReferral().getTenantId());
-            referralContract.setRefereeClinicId(Infrastructure.getPractice().getTenantId());
+            referralContract.setStatus("Initiated");
+            /*referralContract.setReferralClinicId(referralContract.getReferral().getTenantId());
+            referralContract.setRefereeClinicId(Infrastructure.getPractice().getTenantId());*/
+            referralContract.setReferralClinicId(Infrastructure.getPractice().getTenantId());
+            referralContract.setRefereeClinicId(referralContract.getReferral().getTenantId());
 
             Iterator<ReferralContractService> referralContractServiceIterator = referralContract.getReferralContractServices().iterator();
             while (referralContractServiceIterator.hasNext()){
@@ -160,11 +163,11 @@ import java.util.*;
 
 
         private void updateReferralDb(){
-            TenantIdHolder.setTenantId(referralContract.getReferralClinicId());
+            TenantIdHolder.setTenantId(referralContract.getRefereeClinicId());
 
             ReferralContract refContract =  commonCrudService.findUniqueByEquality(ReferralContract.class, new String[]{"referralClinicId","refereeClinicId","expiryDate","contractDate"},
                     new Object[]{referralContract.getReferralClinicId(),referralContract.getRefereeClinicId(),referralContract.getExpiryDate(),referralContract.getContractDate()});
-            Referral referral = commonCrudService.findUniqueByEquality(Referral.class, new String[]{"tenantId"}, new Object[]{referralContract.getRefereeClinicId()});
+            Referral referral = commonCrudService.findUniqueByEquality(Referral.class, new String[]{"tenantId"}, new Object[]{referralContract.getReferralClinicId()});
             if(refContract == null)
                 refContract = new ReferralContract();
             refContract.setReferral(referral);
@@ -179,6 +182,7 @@ import java.util.*;
             refContract.setDocumentName(referralContract.getDocumentName());
             refContract.setReferralClinicId(referralContract.getReferralClinicId());
             refContract.setRefereeClinicId(referralContract.getRefereeClinicId());
+            refContract.setStatus("Received");
             Infrastructure.getSessionFactory().getCurrentSession().clear();
             commonCrudService.save(refContract);
             if(UtilValidator.isEmpty(refContract.getReferralContractServices())){
@@ -196,7 +200,7 @@ import java.util.*;
                 }
             }
 
-            TenantIdHolder.setTenantId(referralContract.getRefereeClinicId());
+            TenantIdHolder.setTenantId(referralContract.getReferralClinicId());
         }
 
         @AfterCompose

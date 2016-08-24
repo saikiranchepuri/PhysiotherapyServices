@@ -34,6 +34,10 @@
                     <label value="Thru Date"/>
                     <datebox id="thruDate" sclass="span12"/>
                 </div>
+                <div zclass="span2">
+                    <label value="Referral Doctor Name"/>
+                    <textbox id="refDocName" sclass="span9"/>
+                </div>
 
             </div>
         </div>
@@ -48,7 +52,7 @@
                             fromDate.setValue(new java.util.Date());
                             thruDate.setValue(new java.util.Date());
                        }
-                       List labOrderList =billingService.getSearchByLabOrder(statuses,labOrderRequest.getPatient(),labOrderRequest.getReferral(),fromDate.getValue(),thruDate.getValue());
+                       List labOrderList =billingService.getSearchByLabOrder(statuses,labOrderRequest.getPatient(),labOrderRequest.getReferral(),fromDate.getValue(),thruDate.getValue(),refDocName.getValue());
 
                          /*   for(com.nzion.domain.emr.lab.LabOrderRequest lr:labOrderList){
                             if(lr.isHomeService()){
@@ -120,10 +124,10 @@
                     <!-- <name object="@{labOrderRequest.referral}"/>-->
                     <label value="@{labOrderRequest.orderStatus.description}" width="10%"/>
                     <vlayout>
-                        <button label="Result Entry">
+                        <button label="View">
                             <attribute name="onClick">
                                 <![CDATA[
-                                     Executions.createComponents("/lab/labOrderResult.zul", null,com.nzion.util.UtilMisc.toMap("labOrderRequest",self.getParent().getParent().getValue()));
+                                     Executions.createComponents("/lab/labReportView.zul", null,com.nzion.util.UtilMisc.toMap("labOrderRequest",self.getParent().getParent().getValue()));
                                 ]]>
                             </attribute>
                         </button>

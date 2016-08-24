@@ -83,13 +83,13 @@
                     ]]>
                 </attribute>
             </button>
-            <!--<button label="New Physiotherapy Order" id="add">
+            <button label="New Physiotherapy Order" id="add">
                 <attribute name="onClick">
                     <![CDATA[
                        com.nzion.zkoss.ext.Navigation.navigate("/portlets/frontDeskLabOrderRequest",null,frontDeskLabOrderPortletWindow);
                     ]]>
                 </attribute>
-            </button>-->
+            </button>
         </div>
         <separator></separator>
 

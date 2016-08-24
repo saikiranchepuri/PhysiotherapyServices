@@ -1,7 +1,6 @@
 package com.nzion.zkoss.composer.emr.lab;
 
 import com.nzion.domain.File;
-import com.nzion.domain.emr.lab.LabOrderRequest;
 import com.nzion.domain.emr.lab.LabRequisition;
 import com.nzion.domain.emr.lab.LabResultAttachments;
 import com.nzion.service.common.CommonCrudService;
@@ -9,10 +8,7 @@ import com.nzion.zkoss.composer.OspedaleAutowirableComposer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ExecutionArgParam;
-import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.*;
 import org.zkoss.zul.Filedownload;
 
 import javax.sql.DataSource;
@@ -27,6 +23,7 @@ import java.util.List;
 public class LabOrderResultController extends OspedaleAutowirableComposer {
     private CommonCrudService commonCrudService;
     private List<LabResultAttachments> labResultAttachments;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -36,8 +33,9 @@ public class LabOrderResultController extends OspedaleAutowirableComposer {
 
 
     @Init
-    public void init(@ExecutionArgParam("labOrderRequest") LabOrderRequest labOrderRequest){
-        labResultAttachments = commonCrudService.findByEquality(LabResultAttachments.class, new String[]{"labOrderRequest.id"}, new Object[]{labOrderRequest.getId()});
+    public void init(@ExecutionArgParam("labRequisition") LabRequisition labRequisitionId){
+        labRequisitionId = commonCrudService.getById(LabRequisition.class,labRequisitionId.getId());
+        labResultAttachments = commonCrudService.findByEquality(LabResultAttachments.class, new String[]{"labOrderRequest.id"}, new Object[]{labRequisitionId.getLabOrderRequest().getId()});
     }
 
     public CommonCrudService getCommonCrudService() {
@@ -62,6 +60,25 @@ public class LabOrderResultController extends OspedaleAutowirableComposer {
         File file = each.getFile();
         InputStream in = new FileInputStream(file.getFilePath());
         Filedownload.save(in, file.getFileType(), file.getFileName());
+    }
+
+    @Command("Save")
+    @NotifyChange("labResultAttachments")
+    public void save(@BindingParam("labResultAttachment") LabResultAttachments labResultAttachment){
+        try {
+            if(labResultAttachment.getFile() != null) {
+                labResultAttachments.add(labResultAttachment);
+            }
+        }catch (Exception e){}
+    }
+
+    @Command("Remove")
+    @NotifyChange("labResultAttachments")
+    public void remove(@BindingParam(value = "arg1")LabResultAttachments labResultAttachments1){
+        try{
+            labResultAttachments.remove(labResultAttachments1);
+            commonCrudService.delete(labResultAttachments1);
+        }catch (Exception e){}
     }
 
 

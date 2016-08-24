@@ -44,6 +44,7 @@ public class ReferralContract extends IdGeneratingBaseEntity {
     private String referralClinicId;
 
     private String refereeClinicId;
+    private String status;
 
     private String contractStatusNewLabel;
     private Set<ReferralContractService> referralContractServices;
@@ -195,5 +196,13 @@ public class ReferralContract extends IdGeneratingBaseEntity {
 
     public static enum PAYPOINT_ENUM{
         ON_BILL,ON_PARTIAL_RECEIPT,ON_FULL_RECEIPT
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
