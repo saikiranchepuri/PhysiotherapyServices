@@ -167,14 +167,14 @@
                                                         </n:ul>
                                                         <n:h5 id="patient">Patient</n:h5>
                                                         <n:ul>
-                                                            <n:li  >
+                                                            <!--<n:li  >
                                                                 <a  label="New Patient"  id="addpatient" >
                                                                     <attribute name="onClick">
                                                                         setTitleAndActivateMenu("People","New Patient", people);
                                                                         appendContent("patientAdd");
                                                                     </attribute>
                                                                 </a>
-                                                            </n:li>
+                                                            </n:li>-->
                                                             <!-- <n:li >
                                                                 <a  label="Search Patients" id="patientlist" >
                                                                     <attribute name="onClick">
