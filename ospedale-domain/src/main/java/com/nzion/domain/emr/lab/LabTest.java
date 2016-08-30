@@ -39,6 +39,7 @@ public class LabTest extends IdGeneratingBaseEntity implements Serializable{
 	
 	private Set<Investigation> investigations;
 	private String specialInstruction;
+	private String specialInstructionAr;
 	private String turnaroundTime;
 	private Integer displayOrder;
 	private BigDecimal billableAmount;
@@ -140,6 +141,14 @@ public class LabTest extends IdGeneratingBaseEntity implements Serializable{
 
 	public void setSpecialInstruction(String specialInstruction) {
 		this.specialInstruction = specialInstruction;
+	}
+
+	public String getSpecialInstructionAr() {
+		return specialInstructionAr;
+	}
+
+	public void setSpecialInstructionAr(String specialInstructionAr) {
+		this.specialInstructionAr = specialInstructionAr;
 	}
 
 	public String getTurnaroundTime() {

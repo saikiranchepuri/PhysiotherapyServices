@@ -26,6 +26,7 @@ public class LabTestProfile extends IdGeneratingBaseEntity implements Serializab
 
 	private boolean prescriptionRequired;
 	private String specialInstruction;
+	private String specialInstructionAr;
 	private String turnaroundTime;
 	private Integer displayOrder;
 	private String department;
@@ -89,6 +90,14 @@ public class LabTestProfile extends IdGeneratingBaseEntity implements Serializab
 
 	public void setSpecialInstruction(String specialInstruction) {
 		this.specialInstruction = specialInstruction;
+	}
+
+	public String getSpecialInstructionAr() {
+		return specialInstructionAr;
+	}
+
+	public void setSpecialInstructionAr(String specialInstructionAr) {
+		this.specialInstructionAr = specialInstructionAr;
 	}
 
 	public String getTurnaroundTime() {
