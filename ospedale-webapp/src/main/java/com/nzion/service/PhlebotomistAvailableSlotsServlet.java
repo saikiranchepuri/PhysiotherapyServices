@@ -257,7 +257,10 @@ public class PhlebotomistAvailableSlotsServlet extends HttpServlet{
                     referralClinicId = labOrderDto.getRows().get(0).getReferralClinicId();
                 }
                 if ((UtilValidator.isNotEmpty(labOrderDto.getRows())) && (labOrderDto.getRows().get(0).getReferralClinicId() != null) && (labOrderDto.getRows().get(0).getReferralClinicId() != "")){
-                    RestServiceConsumer.updatePhysioOrderInClinic(referralClinicId, labOrderDto);
+                    String physioOrderSoapSectionId = RestServiceConsumer.updatePhysioOrderInClinic(referralClinicId, labOrderDto);
+                    if (physioOrderSoapSectionId != null) {
+                        RestServiceConsumer.updatePhysioOrderInPortal(Infrastructure.getPractice().getTenantId(), physioOrderSoapSectionId);
+                    }
                 }
             } catch (Exception e){
                 e.printStackTrace();
@@ -468,7 +471,7 @@ public class PhlebotomistAvailableSlotsServlet extends HttpServlet{
         labOrderRequest.setMobileOrPatinetPortal(true);
             String referralClinicId = "";
             String referralDoctorId = "";
-
+            String referralDoctorName = "";
 
             for (LabOrderItemDto labOrderItemDto:labOrderItemDtoList) {
 
@@ -512,6 +515,7 @@ public class PhlebotomistAvailableSlotsServlet extends HttpServlet{
                 if((labOrderItemDto.getReferralClinicId() != null) && (labOrderItemDto.getReferralClinicId() != "") && (referralClinicId == "")){
                     referralClinicId = labOrderItemDto.getReferralClinicId();
                     referralDoctorId = labOrderItemDto.getReferralDoctorId();
+                    referralDoctorName = labOrderItemDto.getReferralDoctorName();
                 }
         }
         //labOrderRequest.setConsultationInvoiceGenerated(false);
@@ -525,6 +529,7 @@ public class PhlebotomistAvailableSlotsServlet extends HttpServlet{
             }
             labOrderRequest.setReferral(referral);
             labOrderRequest.setReferralDoctorId(referralDoctorId);
+            labOrderRequest.setReferralDoctorName(referralDoctorName);
 
         LabOrderRequest orderRequest = commonCrudService.save(labOrderRequest);
 
