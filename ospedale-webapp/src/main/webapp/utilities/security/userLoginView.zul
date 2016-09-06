@@ -130,10 +130,25 @@
 									</checkbox>	-->
 
 									<!--Label change : Technician to Physiotherapist. Functionality will remain same (can use Technician)-->
-									<checkbox label=" Physiotherapist" checked="@{userLoginController.rolesVo.technician}"
+									<!--<checkbox label=" Physiotherapist" checked="@{userLoginController.rolesVo.technician}"
 										style="padding:6px;" id="technician"
 										onCheck="labDeptBox.setVisible(event.isChecked());ldeptMsgBox.setVisible(!event.isChecked());
 										laboratoriesBox.setVisible(event.isChecked());labtMsgBox.setVisible(!event.isChecked())">
+									</checkbox>-->
+									<checkbox label=" Physiotherapist" checked="@{userLoginController.rolesVo.technician}"
+											  style="padding:6px;" id="technician">
+										<attribute name="onCheck"><![CDATA[
+										if((event.isChecked()) || ((!event.isChecked()))){
+											labDeptBox.setVisible(event.isChecked());
+											ldeptMsgBox.setVisible(!event.isChecked());
+											laboratoriesBox.setVisible(event.isChecked());
+											labtMsgBox.setVisible(!event.isChecked());
+										}
+											laboratoriesInc.invalidate();
+											laboratoriesInc.setDynamicProperty("laboratories", laboratories);
+											laboratoriesInc.setDynamicProperty("userLoginController", userLoginController);
+											laboratoriesInc.setSrc("/utilities/security/laboratory-include-userlogin.zul");
+										]]></attribute>
 									</checkbox>
 									<checkbox label=" Reception" checked="@{userLoginController.rolesVo.reception}"
 										style="padding:6px;" id="reception" />
@@ -201,6 +216,22 @@
 											laboratoriesInc.setDynamicProperty("userLoginController", userLoginController);
 											laboratoriesInc.setSrc("/utilities/security/laboratory-include-userlogin.zul");
 										</attribute>
+										<attribute name="onCreate">
+											if (userLoginController.getUserLogin().getId() == null){
+											self.setChecked(true);
+											userLoginController.addOrRemoveLabDepartment(((Listbox) self.getPreviousSibling()).getSelectedItem().getValue(), true);
+
+											List laboratoryList = null;
+											laboratories.clear();
+											for (com.nzion.domain.emr.lab.LabDepartment ldept : userLoginController.getLabDepartments()) {
+											String depart = ldept.getDepartment();
+											laboratoryList = commonCrudRepository.findByEquality(com.nzion.domain.emr.lab.Laboratories.class, new String[] { "department" }, new Object[] {depart});
+											laboratories.addAll(laboratoryList);
+											}
+											} else {
+											self.setChecked(userLoginController.getLabDepartments().contains(((Listbox)self.getPreviousSibling()).getSelectedItem().getValue()));
+											}
+										</attribute>
 										</checkbox>
 									</div>
 								</hbox>	
@@ -209,7 +240,7 @@
 								// if(phlebotomist.isChecked() || technician.isChecked()) self.setVisible(false);
 								if(technician.isChecked()) self.setVisible(false);
 								</attribute>
-									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Technician Role is Selected</label>
+									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Physiotherapist Role is Selected</label>
 								</div>
 								</h:td>
 						</h:tr>
@@ -224,7 +255,7 @@
 							</h:td>
 							<h:td width="80%">
 								<!--<div id="laboratoriesBox" onCreate="self.setVisible(phlebotomist.isChecked() || technician.isChecked())">-->
-								<div id="laboratoriesBox" onCreate="self.setVisible(technician.isChecked())">
+								<div id="laboratoriesBox" visible="true">
 									<include id="laboratoriesInc"
 										src="/utilities/security/laboratory-include-userlogin.zul" laboratories="${laboratories}"
 										userLoginController="${userLoginController}" />
@@ -234,7 +265,7 @@
 							//	if(phlebotomist.isChecked() || technician.isChecked()) self.setVisible(false);
 							if(technician.isChecked()) self.setVisible(false);
 						</attribute>
-									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Technician Role is Selected</label>
+									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Physiotherapist Role is Selected</label>
 						</div>
 							</h:td>
 						</h:tr>
