@@ -289,9 +289,9 @@
 					</listhead>
 					<listitem self="@{each='assoc'}">
 						<custom-attributes calendarAssoc="@{assoc}"/>
-						<attribute name="onDoubleClick">
+						<!--<attribute name="onDoubleClick">
 							Executions.createComponents("/appointment/editPersonalCalendarAssociation.zul", null, com.nzion.util.UtilMisc.toMap("calendarAssoc",calendarAssoc));
-						</attribute>
+						</attribute>-->
 						<!--<listcell>
 							<label value="@{assoc.location.name}"/>					
 						</listcell>-->
