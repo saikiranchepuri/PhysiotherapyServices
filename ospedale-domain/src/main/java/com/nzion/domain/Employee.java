@@ -22,6 +22,9 @@ public class Employee extends Person {
 
 //	private Boolean phlebotomist;
 	private boolean phlebotomist = Boolean.FALSE;
+	private String nationality;
+	private String certificationEng;
+	private String qualificationEng;
 
 	@Column(length = 1000)
 	public String getComments() {
@@ -56,5 +59,29 @@ public class Employee extends Person {
 
 	static {
 		Party.setPartyMap(Employee.class, PartyType.EMPLOYEE);
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public String getCertificationEng() {
+		return certificationEng;
+	}
+
+	public void setCertificationEng(String certificationEng) {
+		this.certificationEng = certificationEng;
+	}
+
+	public String getQualificationEng() {
+		return qualificationEng;
+	}
+
+	public void setQualificationEng(String qualificationEng) {
+		this.qualificationEng = qualificationEng;
 	}
 }
