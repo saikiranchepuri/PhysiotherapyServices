@@ -148,7 +148,7 @@ public class InvoiceCollectionReportViewModel {
             map.put("transRefOrCheckNumber", tranNum);
             map.put("bankName", invoicePayment.getBankName());
             map.put("checkDate", invoicePayment.getChequeOrDdDate());
-
+            map.put("policyNumber", invoicePayment.getPolicyNo());
             map.put("invoiceId", invoicePayment.getInvoice().getId());
             map.put("billableAmount", invoicePayment.getInvoice().getTotalAmount().getAmount());
             map.put("paidAmount",BigDecimal.ZERO.setScale(3, RoundingMode.HALF_UP));

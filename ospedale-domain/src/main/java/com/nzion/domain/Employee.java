@@ -1,14 +1,17 @@
 package com.nzion.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.nzion.domain.emr.SpokenLanguage;
 import com.nzion.util.UtilValidator;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.nzion.domain.annot.AccountNumberField;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -24,7 +27,12 @@ public class Employee extends Person {
 	private boolean phlebotomist = Boolean.FALSE;
 	private String nationality;
 	private String certificationEng;
+	private String certificationArb;
 	private String qualificationEng;
+	private String qualificationArb;
+	private String registrationNo;
+	private Set<SpokenLanguage> spokenLanguages;
+	private String experienceEn;
 
 	@Column(length = 1000)
 	public String getComments() {
@@ -83,5 +91,48 @@ public class Employee extends Person {
 
 	public void setQualificationEng(String qualificationEng) {
 		this.qualificationEng = qualificationEng;
+	}
+
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
+	}
+
+	public String getCertificationArb() {
+		return certificationArb;
+	}
+
+	public void setCertificationArb(String certificationArb) {
+		this.certificationArb = certificationArb;
+	}
+
+	@ManyToMany(targetEntity = SpokenLanguage.class,fetch = FetchType.EAGER)
+	@JoinTable(name = "EMPLOYEE_SPOKEN_LANGUAGE",joinColumns = {@JoinColumn(name = "EMPLOYEE_ID")},inverseJoinColumns = {@JoinColumn(name = "SPOKEN_LANGUAGE_ID")})
+	@Fetch(FetchMode.SELECT)
+	public Set<SpokenLanguage> getSpokenLanguages() {
+		return spokenLanguages;
+	}
+
+	public void setSpokenLanguages(Set<SpokenLanguage> spokenLanguages) {
+		this.spokenLanguages = spokenLanguages;
+	}
+
+	public String getQualificationArb() {
+		return qualificationArb;
+	}
+
+	public void setQualificationArb(String qualificationArb) {
+		this.qualificationArb = qualificationArb;
+	}
+
+	public String getExperienceEn() {
+		return experienceEn;
+	}
+
+	public void setExperienceEn(String experienceEn) {
+		this.experienceEn = experienceEn;
 	}
 }

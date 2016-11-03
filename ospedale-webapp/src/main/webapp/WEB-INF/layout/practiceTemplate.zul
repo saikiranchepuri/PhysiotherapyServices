@@ -442,9 +442,9 @@
                                                         <n:h5>Scheduling</n:h5>
                                                         <n:ul>
                                                             <n:li>
-                                                                <a  label="Personal Calendar" >
+                                                                <a  label="Physiotherapy Center Calendar" >
                                                                     <attribute name="onClick">
-                                                                        setTitleAndActivateMenu("Setup","Personal Calendar", setup);
+                                                                        setTitleAndActivateMenu("Setup","Physiotherapy Center Calendar", setup);
                                                                         appendContent("individualScheduleConfig");
                                                                     </attribute>
                                                                 </a>
@@ -614,6 +614,14 @@
                                                                     <attribute name="onClick">
                                                                         setTitleAndActivateMenu("Invoice","",reportsMenu);
                                                                         appendContent("/report/invoiceCollectionReport");
+                                                                    </attribute>
+                                                                </a>
+                                                            </n:li>
+                                                            <n:li>
+                                                                <a label="Referral Report" >
+                                                                    <attribute name="onClick">
+                                                                        setTitleAndActivateMenu("Referral","",reportsMenu);
+                                                                        appendContent("/report/referral-report");
                                                                     </attribute>
                                                                 </a>
                                                             </n:li>

@@ -47,7 +47,9 @@ public class LabPanelController extends OspedaleAutowirableComposer {
 
 	private Set<LabTestPanel> labTestPanels;
 	
-	private Set<LabTest> labTests;
+	private Set<LabTest> labTests = new HashSet<LabTest>();
+
+	private LinkedList<LabTest> allLabTests = new LinkedList<LabTest>();
 
 	//private LabTestCpt labTestCpt;
 
@@ -59,29 +61,39 @@ public class LabPanelController extends OspedaleAutowirableComposer {
 
 	@Override
 	public void doAfterCompose(Component component) throws Exception {
-	super.doAfterCompose(component);
-	labTestPanel = null;
+		super.doAfterCompose(component);
+		labTestPanel = null;
 		Object obj =  Executions.getCurrent().getArg().get("entity");
 		if (obj != null) {
 			labTestPanel = (LabTestPanel)obj;
 		}
-	if (labTestPanel == null) {
-		labTestPanel = new LabTestPanel();
-		//labTestCpt = new LabTestCpt();
-		//labTestPanel.setLabCpt(labTestCpt);
+		List<LabTest> allLabTestsList = commonCrudService.getAll(com.nzion.domain.emr.lab.LabTest.class);
+		allLabTests.addAll(allLabTestsList);
+		if (labTestPanel == null) {
+			labTestPanel = new LabTestPanel();
+			//labTestCpt = new LabTestCpt();
+			//labTestPanel.setLabCpt(labTestCpt);
+			//panelTechnicianSet = labTestPanel.getPanelTechnicians();
+			return;
+		}
+		labTestPanel = commonCrudService.getById(LabTestPanel.class, labTestPanel.getId());
 		//panelTechnicianSet = labTestPanel.getPanelTechnicians();
-		return;
-	}
-	labTestPanel = commonCrudService.getById(LabTestPanel.class, labTestPanel.getId());
-	//panelTechnicianSet = labTestPanel.getPanelTechnicians();
-	labTests = labTestPanel.getTests();
-	//labTests = labTest.getLabTestPanels();
-	//labTestCpt = labTestPanel.getLabCpt();
+		labTests = labTestPanel.getTests();
+		if (UtilValidator.isNotEmpty(labTests)) {
+			allLabTests.clear();
+			if (UtilValidator.isNotEmpty(allLabTestsList)) {
+				allLabTestsList.removeAll(labTests);
+			}
+			allLabTests.addAll(labTests);
+			allLabTests.addAll(allLabTestsList);
+		}
+		//labTests = labTest.getLabTestPanels();
+		//labTestCpt = labTestPanel.getLabCpt();
 	}
 
-	public void saveNewLabTestPanel() {
-		/*labTest.setInvestigations(labTests);
-		labTest.setTestPneumonic(labTest.getTestDescription());*/
+	/*public void saveNewLabTestPanel() {
+		*//*labTest.setInvestigations(labTests);
+		labTest.setTestPneumonic(labTest.getTestDescription());*//*
 		//labService.saveLabTestPanel(labTestPanel);
 		labTestPanel.setTests(labTests);
 		LabTestPanel test = commonCrudService.save(labTestPanel);
@@ -89,6 +101,27 @@ public class LabPanelController extends OspedaleAutowirableComposer {
 		commonCrudService.merge(test);
 		root.getFellowIfAny("addNewLabTestPanelWindow", true).detach();
 		UtilMessagesAndPopups.showSuccess();
+	}*/
+
+	public boolean saveNewLabTestPanel() {
+		/*labTest.setInvestigations(labTests);
+		labTest.setTestPneumonic(labTest.getTestDescription());*/
+		//labService.saveLabTestPanel(labTestPanel);
+		labTestPanel.setTests(labTests);
+		if(labTests == null || labTests.size() < 2){
+			UtilMessagesAndPopups.showError("Package should have minimum 2 tests");
+			return false;
+		} else {
+			if (labTests.size() >= 2) {
+				LabTestPanel test = commonCrudService.save(labTestPanel);
+				//	test.setPanelCode("Panel " + test.getId());
+				commonCrudService.merge(test);
+				//	root.getFellowIfAny("addNewLabTestPanelWindow", true).detach();
+				UtilMessagesAndPopups.showSuccess();
+			}
+		}
+
+		return true;
 	}
 
 	/*public void saveLabTestPanel() {
@@ -244,5 +277,17 @@ public class LabPanelController extends OspedaleAutowirableComposer {
 
 	private static final long serialVersionUID = 1L;
 
+	public LinkedList<LabTest> getAllLabTests() {
+		return allLabTests;
+	}
 
+	public void setAllLabTests(LinkedList<LabTest> allLabTests) {
+		this.allLabTests = allLabTests;
+	}
+
+	public void updatedSelectedList(LabTest labTest){
+		if (labTests.contains(labTest)){
+			labTests.remove(labTest);
+		}
+	}
 }

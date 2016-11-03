@@ -10,7 +10,7 @@
 		//com.nzion.domain.screen.ScheduleConfig screenDisplay = scheduleService.getAppointmentDisplayScreen();
 		List persons = scheduleService.getSchedulablePersons();
 		com.nzion.domain.Person person = new com.nzion.domain.Person();
-		person.setFirstName("PHYSIOTHERAPY WALKIN");
+		person.setFirstName("PHYSIOTHERAPY CENTER");
 		persons.add(person);
 
 		EntityDropdownRenderer dropdownRenderer = new EntityDropdownRenderer(new EntityDropDownPersonNameAdapter());
@@ -21,13 +21,13 @@
 	</zscript>
 	<div style="padding:5px" zclass="page-header titled-well">
             <h:h1>
-                <h:small>Personal Calendar</h:small>
+                <h:small>Physiotherapy Center Calendar</h:small>
             </h:h1>
          </div>
 			<div class="container-fluid">
 		       <div zclass="row-fluid">
                  <div zclass="span2">
-						<label value="Person"/>
+						<label value="Physiotherapy Center"/>
 						<label value=" *" zclass="labelReq"/>
 						<!--<combobox selectedItem="@{association.person, save-when='saveAssocBtn.onClick', load-after='saveAssocBtn.onClick'}" readonly="true"
 											id="personCombo" constraint="no empty, no past" sclass="span12" w:showError_="function(mesg){displayError(this,mesg);}" w:clearErrorMessage="function(revalidate, remainError){clearErrorMessage(remainError,this);}" model="@{persons}" itemRenderer="${dropdownRenderer}">
@@ -188,7 +188,7 @@
 								<comboitem value="HomePhlebotomy" label="HOME PHLEBOTOMY"/>
 							</combobox>
 						</div>
-						<div zclass="span2" id="visitsPerIntervDiv" visible="false">
+						<div zclass="span2" id="visitsPerIntervDiv" visible="true">
 							<label value="Visits/Interval"/>
 							<intbox value="@{association.visitsPerInterval, save-when='saveAssocBtn.onClick', load-after='saveAssocBtn.onClick'}" sclass="span12" w:showError_="function(mesg){displayError(this,mesg);}" w:clearErrorMessage="function(revalidate, remainError){clearErrorMessage(remainError,this);}" id="visitsPerIntervBox"/>
 						</div>

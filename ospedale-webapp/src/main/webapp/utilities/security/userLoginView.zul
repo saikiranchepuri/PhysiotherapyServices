@@ -136,13 +136,12 @@
 										laboratoriesBox.setVisible(event.isChecked());labtMsgBox.setVisible(!event.isChecked())">
 									</checkbox>	-->
 
-									<!--Label change : Technician to Physiotherapist. Functionality will remain same (can use Technician)-->
 									<!--<checkbox label=" Physiotherapist" checked="@{userLoginController.rolesVo.technician}"
 										style="padding:6px;" id="technician"
 										onCheck="labDeptBox.setVisible(event.isChecked());ldeptMsgBox.setVisible(!event.isChecked());
 										laboratoriesBox.setVisible(event.isChecked());labtMsgBox.setVisible(!event.isChecked())">
 									</checkbox>-->
-									<checkbox label=" Physiotherapist" checked="@{userLoginController.rolesVo.technician}"
+									<checkbox label=" Technician" checked="@{userLoginController.rolesVo.technician}"
 											  style="padding:6px;" id="technician">
 										<attribute name="onCheck"><![CDATA[
 										if((event.isChecked()) || ((!event.isChecked()))){
@@ -247,7 +246,7 @@
 								// if(phlebotomist.isChecked() || technician.isChecked()) self.setVisible(false);
 								if(technician.isChecked()) self.setVisible(false);
 								</attribute>
-									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Physiotherapist Role is Selected</label>
+									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Technician Role is Selected</label>
 								</div>
 								</h:td>
 						</h:tr>
@@ -272,7 +271,7 @@
 							//	if(phlebotomist.isChecked() || technician.isChecked()) self.setVisible(false);
 							if(technician.isChecked()) self.setVisible(false);
 						</attribute>
-									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Physiotherapist Role is Selected</label>
+									<label style="width:100%;font-size: 10px;">Only When Phlebotomist or Technician Role is Selected</label>
 						</div>
 							</h:td>
 						</h:tr>
