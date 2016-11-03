@@ -348,7 +348,7 @@
                                                                 </a>
                                                             </n:li>-->
                                                             <n:li>
-                                                                <a  label="Physiotherapy Test" >
+                                                                <a  label="Test" >
                                                                     <attribute name="onClick">
                                                                         setTitleAndActivateMenu("Master List","LAB Test", masterList);
                                                                         appendContent("labTest");
@@ -364,14 +364,14 @@
                                                                 </a>
                                                             </n:li>
 
-                                                            <n:li>
+                                                            <!--<n:li>
                                                                 <a  label="Test Profile" >
                                                                     <attribute name="onClick">
                                                                         setTitleAndActivateMenu("Master List","Test Profile", masterList);
                                                                         appendContent("labTestProfile");
                                                                     </attribute>
                                                                 </a>
-                                                            </n:li>
+                                                            </n:li>-->
                                                             
                                                             <!-- <n:li>
                                                                 <a  label="LAB Category" >

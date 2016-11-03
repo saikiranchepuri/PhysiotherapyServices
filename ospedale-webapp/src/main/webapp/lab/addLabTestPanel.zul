@@ -34,7 +34,7 @@
             position="center,top">
         <div style="padding:5px" zclass="page-header titled-well">
             <h:h1>
-                <h:small>New Physiotherapy Test</h:small>
+                <h:small>Test Description</h:small>
                 <button type="button" zclass="close" onClick="addLabTestPanelWindow.detach();">×</button>
             </h:h1>
         </div>
@@ -42,7 +42,7 @@
             <div zclass="row-fluid">
                 <div zclass="span6">
                     <label value="Afya Test Name" mold="required"/>
-                    <textbox value="@{labController.labTest.testDescription,save-when='Save.onClick'}"
+                    <textbox value="@{labController.labTest.testDescription,save-when='Save.onClick'}" readonly="true"
                              constraint="no empty:Test Name Required" sclass="span12"
                              w:showError_="function(mesg){displayError(this,mesg);}" w:clearErrorMessage="function(revalidate, remainError){clearErrorMessage(remainError,this);}"/>
                 </div>
