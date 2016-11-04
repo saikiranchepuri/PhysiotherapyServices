@@ -7,11 +7,12 @@
   <!--   portletDatas.add(new com.nzion.view.PortletData("Appointment", "/portlets/appointment.zul", "../images/Medical Appointment.jpg", true));
     portletDatas.add(new com.nzion.view.PortletData("Today's Appointment", "/portlets/schedules-of-the-day-portlet.zul","../images/appointment.png", true)); -->
    <!-- portletDatas.add(new com.nzion.view.PortletData("Messages/Tasks", "/portlets/message-portlet-view.zul","../images/new-message-icon.png", true));-->
-    portletDatas.add(new com.nzion.view.PortletData("Billing", "/portlets/frontdeskBillingPortlet.zul","../images/folder_invoices_256.png"));
+
     portletDatas.add(new com.nzion.view.PortletData("Physiotherapy Order", "/billing/labOrderPortlet.zul", "../images/labresults.jpg",true));
+    portletDatas.add(new com.nzion.view.PortletData("Billing", "/portlets/frontdeskBillingPortlet.zul","../images/folder_invoices_256.png"));
     portletDatas.add(new com.nzion.view.PortletData("Referral Requests", "/referral/referralRequests.zul", "../images/labresults.jpg",true));
-    portletDatas.add(new com.nzion.view.PortletData("Lab Test Requests", "/lab/labRequisitionListView.zul", "../images/labresults.jpg", true));
-    portletDatas.add(new com.nzion.view.PortletData("Physiotherapy Results", "/billing/labResults.zul", "../images/labresults.jpg",true));
+    portletDatas.add(new com.nzion.view.PortletData("Physiotherapy Requests", "/lab/labRequisitionListView.zul", "../images/labresults.jpg", true));
+    portletDatas.add(new com.nzion.view.PortletData("Physiotherapy Report", "/billing/labResults.zul", "../images/labresults.jpg",true));
     portletDatas.add(new com.nzion.view.PortletData("Referral Details", "/portlets/referral_details.zul", "../images/patient_account/referral-connection.jpg", true));
 
 

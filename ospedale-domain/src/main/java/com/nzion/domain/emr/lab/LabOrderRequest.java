@@ -63,6 +63,7 @@ public class LabOrderRequest extends IdGeneratingBaseEntity{
 	private String referralDoctorId;
 	private String resultEntryDescription;
 	private String referralDoctorName;
+	private String labTestList = "";
 
 
 	@ManyToMany(targetEntity=Laboratories.class,fetch=FetchType.EAGER)
@@ -105,7 +106,7 @@ public class LabOrderRequest extends IdGeneratingBaseEntity{
 	}
 
 	public static enum ORDERSTATUS{
-		BILLING_REQUIRED("New"),INVOICED("Invoiced"),BILLING_DONE("Billed"), INPATIENT_BILLING("Inpatient Billing"), INPROCESS("In Process"), COMPLETED("Completed"), CANCELLED("Cancelled");
+		BILLING_REQUIRED("Invoice Pending"),INVOICED("Payment Pending"),BILLING_DONE("Invoiced"), INPATIENT_BILLING("Inpatient Billing"), INPROCESS("In Process"), COMPLETED("Completed"), CANCELLED("Cancelled");
 
 		private String description;
 
@@ -349,5 +350,25 @@ public class LabOrderRequest extends IdGeneratingBaseEntity{
 
 	public void setReferralDoctorName(String referralDoctorName) {
 		this.referralDoctorName = referralDoctorName;
+	}
+
+	@Transient
+	public String getLabTestList() {
+		if(UtilValidator.isNotEmpty(getPatientLabOrders())){
+			Set<PatientLabOrder> patientLabOrders = getPatientLabOrders();
+			for(PatientLabOrder patientLabOrder : patientLabOrders){
+				if (patientLabOrder.getLabTest() != null){
+					labTestList = labTestList + "," + patientLabOrder.getLabTest().getTestDescription();
+				} else if (patientLabOrder.getLabTestPanel() != null){
+					labTestList = labTestList + "," + patientLabOrder.getLabTestPanel().getPanelDescription();
+				} else if (patientLabOrder.getLabTestProfile() != null){
+					labTestList = labTestList + "," + patientLabOrder.getLabTestProfile().getProfileName();
+				}
+			}
+		}
+		if (labTestList != ""){
+			labTestList = labTestList.substring(1);
+		}
+		return labTestList;
 	}
 }

@@ -20,17 +20,17 @@
 		  <div class="container-fluid">
             <div zclass="row-fluid">
                
-                <div zclass="span4">
+                <div zclass="span3">
                     <label value="Patient"/>
                     <patientlookup id="patientLookUpBox"
                             onChange="vm.setPatient(event.getOrigin().getData())" sclass="span12"/>
                 </div>
                 <div zclass="span2">
-                    <label value="Lab From Date"/>
+                    <label value="From Date"/>
                     <datebox id="fromDate" sclass="span12"/>
                 </div>
                 <div zclass="span2">
-                    <label value="Lab Thru Date"/>
+                    <label value="To Date"/>
                     <datebox id="thruDate" sclass="span12"/>
                 </div>
                 
@@ -51,38 +51,39 @@
 		
         <tabbox width="100%" sclass="nav_tabs">
         <tabs id="tabs">
-            <tab label="Lab Request" id="outpatientTab" onSelect="@command('OPDPATIENTS')"/>
+            <tab label="Physiotherapy Request" id="outpatientTab" onSelect="@command('OPDPATIENTS')"/>
             <!-- <tab label="In Patient Lab Request" id="inpatientTab" onSelect="@command('INPATIENT_LAB')" visible="false"/> -->
         </tabs>
         <tabpanels>
             <tabpanel>
                 <listbox model="@bind(vm.requisitionList)" mold="paging" autopaging="false" pageSize="30">
                     <listhead>
-                        <listheader label="Token" width="50px"/>
-                        <listheader label="Patient Name"/>
-                        <listheader label="Mobile Number"/>
-                        <listheader>
+                        <listheader label="Token" width="50px" sort="auto(token)"/>
+                        <listheader label="Patient Name" sort="auto(patient.firstName)"/>
+                        <!--<listheader label="Mobile Number"/>-->
+                        <listheader sort="auto(labOrderRequest.startDate)">
                             <vbox>
-                                <label value="Appointment"/>
-                                <label value="Date"/>
+                                <label value="Appointment" zclass=" z-listheader-cnt"/>
+                                <label value="Date" zclass=" z-listheader-cnt"/>
                             </vbox>
                         </listheader>
-                        <listheader>
+                        <listheader sort="auto(labOrderRequest.startTime)">
                             <vbox>
-                                <label value="Appointment"/>
-                                <label value="Start Time"/>
+                                <label value="Appointment" zclass=" z-listheader-cnt"/>
+                                <label value="Start Time" zclass=" z-listheader-cnt"/>
                             </vbox>
                         </listheader>
-                        <listheader>
+                        <listheader sort="auto(labOrderRequest.endTime)">
                             <vbox>
-                                <label value="Appointment"/>
-                                <label value="End Time"/>
+                                <label value="Appointment" zclass=" z-listheader-cnt"/>
+                                <label value="End Time" zclass=" z-listheader-cnt"/>
                             </vbox>
                         </listheader>
-                        <listheader label="Phlebotomist"/>
-                        <listheader label="Invoice Number"/>
-                        <listheader label="Status"/>
-                        <listheader label="Requested Date" />  
+                       <!-- <listheader label="Phlebotomist"/>
+                        <listheader label="Invoice Number"/>-->
+                        <listheader label="Status" sort="auto(status.description)"/>
+                        <listheader label="Requested Date" sort="auto(createdTxTimestamp)"/>
+                        <listheader label="Test/Package" width="30%" sort="auto(labOrderRequest.labTestList)"/>
                         <listheader label="Action"/>
                     </listhead>
                     <template name="model" var="requisition">
@@ -91,16 +92,42 @@
                             <listcell>
                                 <name value="@load(requisition.patient.firstName)"/>
                             </listcell>
-                            <listcell label="@load(requisition.patient.contacts.mobileNumber)"/>
+                            <!--<listcell label="@load(requisition.patient.contacts.mobileNumber)"/>-->
                             <listcell label="@load(requisition.labOrderRequest.startDate)@converter('formatedDate', format='dd/MM/yyyy') "/>
                             <listcell label="@load(requisition.labOrderRequest.startTime)@converter('formatedDate', format='hh:mm')"/>
                             <listcell label="@load(requisition.labOrderRequest.endTime)@converter('formatedDate', format='hh:mm')"/>
                            <!-- <listcell label="@load(requisition.labOrderRequest.endTime)@converter('com.nzion.view.component.TimeConverter')"/>-->
-                            <listcell label="@load(requisition.labOrderRequest.phlebotomist.firstName)"/>
-                            <listcell label="@load(requisition.invoiceNumber)"></listcell>
+                            <!--<listcell label="@load(requisition.labOrderRequest.phlebotomist.firstName)"/>
+                            <listcell label="@load(requisition.invoiceNumber)"></listcell>-->
                             <listcell label="@load(requisition.status.description)"/>
-                           <listcell >
+                           <listcell>
                             <label value="@load(requisition.createdTxTimestamp)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                            </listcell>
+                            <listcell>
+                                <vlayout>
+                                    <attribute name="onCreate">
+                                        <![CDATA[
+                                            List patientLabOrderList = commonCrudService.findByEquality(com.nzion.domain.emr.soap.PatientLabOrder.class, new String[]{"labOrderRequest"}, new Object[]{self.getParent().getParent().getValue().getLabOrderRequest()});
+                                            for(com.nzion.domain.emr.soap.PatientLabOrder patientLabOrder : patientLabOrderList){
+                                            if(patientLabOrder.getLabTest()!=null) {
+                                                Label l1 = new Label();
+                                                l1.setValue(patientLabOrder.labTest.testPneumonic);
+                                                self.appendChild(l1);
+                                            } else if(patientLabOrder.getLabTestPanel()!=null) {
+                                                Label l1 = new Label();
+                                                l1.setValue(patientLabOrder.labTestPanel.panelPneumonic);
+                                                self.appendChild(l1);
+                                            }/* else {
+                                                if(patientLabOrder.getLabTestProfile()!=null) {
+                                                Label l1 = new Label();
+                                                l1.setValue(patientLabOrder.labTestProfile.profileNeumonic);
+                                                self.appendChild(l1);
+                                                }
+                                            } */
+                                            }
+                                      ]]>
+                                    </attribute>
+                                </vlayout>
                             </listcell>
                             <listcell>
                                 <!--<button label="Accession" sclass="btn-mini"
@@ -119,7 +146,7 @@
                                        if(!isTechnician)	self.setVisible(false);
                                       </attribute>
                                       </button>-->
-                                <button label="Result Upload" sclass="btn-mini">
+                                <button label="Report Upload" sclass="btn-mini">
                                     <attribute name="onClick">
                                         <![CDATA[
                                               Executions.createComponents("/lab/labOrderResult.zul", null,com.nzion.util.UtilMisc.toMap("labRequisition",self.getParent().getParent().getValue()));

@@ -6,11 +6,11 @@
 	]]></zscript>
 	<div zclass="width:100%">
 	    <hlayout spacing="30px" width="100%">
-	        <vlayout spacing="4px" style="overflow: hidden;width:120px;text-align:center;">
+	        <vlayout spacing="4px" style="overflow: hidden;width:125px;text-align:center;">
 	        <div >
 			<label value="${portletData.title}"></label></div>
 			<div style="overflow: hidden;width:120px;">
-		    	<div style="overflow: hidden;width:54%;margin-left:23%;margin-right:23%;" zclass="demo-category-over" id="firstIcon">
+		    	<div style="overflow: hidden;width:64%;margin-left:13%;margin-right:23%;" zclass="demo-category-over" id="firstIcon">
 				     <textbox value="${portletData.title}" visible="false"></textbox>
 				      <textbox value="${portletData.url}" visible="false"></textbox>
 					  <image src="${portletData.imageUrl}" width="50px" height="50px" sclass="demo-category-img">
@@ -24,12 +24,12 @@
 			    </div>
 		    </div>
 		   </vlayout >
-		    <vlayout forEach="${portletDatas}" spacing="4px" style="overflow: hidden;width:120px;text-align:center;">
+		    <vlayout forEach="${portletDatas}" spacing="2px" style="overflow: hidden;width:140px;text-align:center;">
 		      <div > <label value="${each.title}" ></label></div>
 				<div style="overflow: hidden;width:54%;margin-left:23%;margin-right:23%;" zclass="demo-category">
 				     <textbox value="${each.title}" visible="false"></textbox>
 				      <textbox value="${each.url}" visible="false"></textbox>
-					 <image src="${each.imageUrl}" width="50px" height="50px" sclass="demo-category-img">
+					 <image src="${each.imageUrl}" width="40px" height="50px" sclass="demo-category-img">
 						<attribute name="onClick" >
 						    setSelected((Div)self.getParent());
 							includePage.setSrc(self.getPreviousSibling().getValue());

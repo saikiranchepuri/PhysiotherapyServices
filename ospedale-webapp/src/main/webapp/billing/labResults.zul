@@ -31,7 +31,7 @@
                     <datebox id="fromDate" sclass="span12"/>
                 </div>
                 <div zclass="span2">
-                    <label value="Thru Date"/>
+                    <label value="To Date"/>
                     <datebox id="thruDate" sclass="span12"/>
                 </div>
                 <div zclass="span2">
@@ -104,7 +104,7 @@
                 <!--<column label="Doctor"/>-->
                 <!--<column label="Referral"/>-->
                 <column label="Status" />
-                <column label="Action" />
+                <column label="Action" width="20%" />
             </columns>
             <rows>
                 <row self="@{each='labOrderRequest'}" value="@{labOrderRequest}">
@@ -124,7 +124,7 @@
                     <!-- <name object="@{labOrderRequest.referral}"/>-->
                     <label value="@{labOrderRequest.orderStatus.description}" width="10%"/>
                     <vlayout>
-                        <button label="View">
+                        <button label="View Report">
                             <attribute name="onClick">
                                 <![CDATA[
                                      Executions.createComponents("/lab/labReportView.zul", null,com.nzion.util.UtilMisc.toMap("labOrderRequest",self.getParent().getParent().getValue()));
