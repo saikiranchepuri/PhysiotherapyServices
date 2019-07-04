@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ospedale-webapp/PhysiotheraphyServices-webapp.iml" filepath="$PROJECT_DIR$/ospedale-webapp/PhysiotheraphyServices-webapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ospedale-domain/ospedale-domain.iml" filepath="$PROJECT_DIR$/ospedale-domain/ospedale-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ospedale-parent.iml" filepath="$PROJECT_DIR$/ospedale-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ospedale-services-repo/ospedale-services-repo.iml" filepath="$PROJECT_DIR$/ospedale-services-repo/ospedale-services-repo.iml" />
+    </modules>
+  </component>
+</project>
